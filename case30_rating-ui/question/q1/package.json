@@ -1,0 +1,17 @@
+{
+  "name": "q1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html --host 0.0.0.0 -p 3001"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "parcel": "^2.0.0-beta.2",
+    "sass": "^1.32.5"
+  }
+}
