@@ -10,12 +10,15 @@ export default function App() {
     e.preventDefault();
     e.stopPropagation();
     // do something here.
+    setOpen(opendIndex === index ? null : index);
   };
 
   const closeAll = (e) => {
     // do something here.
+    if (e.target.nodeName !== 'P') setOpen(null);
   };
 
+  // closeAll은 body의 click event handler로 이용되고 있다.
   useEffect(() => {
     document.body.addEventListener("click", closeAll);
     return () => {

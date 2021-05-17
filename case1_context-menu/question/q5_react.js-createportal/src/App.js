@@ -6,6 +6,7 @@ import ContextPortal from "./ContextPortal";
 
 export default function App() {
   const [openedIndex, setOpen] = useState(null);
+  // 여기가 중요.
   const detailRefs = useRef([]);
 
   const togglePopover = index => e => {
@@ -40,7 +41,11 @@ export default function App() {
         ))}
       </div>
 
-      <ContextPortal /* 채워 넣으세요. */ />
+
+      <ContextPortal /* 채워 넣으세요. */ 
+        target={detailsRefs.current[openedIndex]}
+        children={<p>{dummyData[openedIndex]?.context}</p>}
+      />
     </>
   );
 }
