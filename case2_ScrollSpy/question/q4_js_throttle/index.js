@@ -8,6 +8,7 @@ const contentItems = Array.from(contentsElem.children);
 
 let offsetTops = [];
 const getOffsetTops = () => {
+  console.log('나 바뀌는중')
   offsetTops = contentItems.map(elem => {
     const [ofs, clh] = [elem.offsetTop, elem.clientHeight];
     return [ofs - clh / 2, ofs + clh / 2];
@@ -20,6 +21,7 @@ window.addEventListener("scroll", throttle(e => {
   const targetIndex = offsetTops.findIndex(([from, to]) => (
     scrollTop >= from && scrollTop < to
   ))
+  console.log(scrollTop)
   Array.from(navElem.children).forEach((c, i) => {
     if (i !== targetIndex) c.classList.remove('on');
     else c.classList.add('on');
