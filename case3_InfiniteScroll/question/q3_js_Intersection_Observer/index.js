@@ -14,8 +14,9 @@ const fetchMore = async () => {
   target.classList.remove("loading");
 };
 
-const fetchMoreObserver = new IntersectionObserver(([{ isIntersecting }]) => {
+const fetchMoreObserver = new IntersectionObserver(([{isIntersecting}]) => {
   // do something
+  if (isIntersecting) return fetchMore();
 });
 fetchMoreObserver.observe(fetchMoreTrigger);
 
