@@ -15,7 +15,16 @@ const fetchMore = async () => {
 
 const onScroll = e => {
   // do something
+  const {
+    scrollHeight,
+    clientHeight,
+    scrollTop,
+  } = e.target.scrollingElement;
+  console.log(scrollTop)
+  if (scrollTop + clientHeight >= scrollHeight) {
+    fetchMore();
+  }
 };
 
-document.addEventListener("scroll", undefined /* fix here */);
+document.addEventListener("scroll", debounce(onScroll, 300));
 fetchMore();

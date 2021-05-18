@@ -10,4 +10,8 @@ export const dummyFetcher = (method, args) =>
 export const debounce = (func, delay) => {
   let timeoutId = null;
   // do something
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(func.bind(null, ...args), delay)
+  }
 };
