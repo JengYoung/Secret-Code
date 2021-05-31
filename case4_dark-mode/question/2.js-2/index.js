@@ -4,7 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // 2. 로컬 스토리지에 저장된 테마가 있다면 사용자 OS 테마보다 이를 우선 적용한다.
 
   // 사용자 OS 테마가 다크 모드이면 matches는 ture다.
-  if (!theme) localStorage.setItem('theme', theme);
+  if (!theme) {
+    // localStorage.setItem('theme', theme);
+    const { matches } = window.matchMedia('(prefers-color-scheme: dark)');
+    theme = matches ? 'dark' : 'light'
+    localStorage.setItem('theme', theme);
+  }
   
   // 로컬스토리지에 저장된 theme가 dark이면 body 요소에 dark 클래스를 추가하고 그렇지 않으면 제거한다.
   document.body.classList.toggle('dark', theme === 'dark');
