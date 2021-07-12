@@ -1,6 +1,11 @@
 const carousel = ($container, images) => {
   // Write JS Code Here!
 
+  function setAutoPlay() {
+    return setInterval(() => {
+      move(++currentSlide, DURATION);
+    }, 3000)
+  }
   // 현재 슬라이드 인덱스. 
   // (0 or images.length + 1 : 클론 슬라이드)
   let currentSlide = 0;
@@ -11,7 +16,7 @@ const carousel = ($container, images) => {
   const DURATION = 500;
 
   // Auto Play 기능
-  const timerId = null;
+  let timerId = null;
 
   // img를 담은 컨테이너.
   let $carouselSlides = null;
@@ -46,15 +51,14 @@ const carousel = ($container, images) => {
     // 설정이 완료된 후에 보이도록 함.
     $container.style.opacity = 1;
 
-    timerId = setInterval(() => {
-      move(++currentSlide, DURATION);
-    }, 3000)
+    timerId = setAutoPlay();
   }
 
   $container.onclick = ({ target }) => {
     if (!target.classList.contains('carousel-control') || isMoving) return;
 
     clearInterval(timerId);
+    timerId = setAutoPlay();
 
     const delta = target.classList.contains('prev') ? -1 : 1;
     currentSlide += 1 * delta;
@@ -64,7 +68,6 @@ const carousel = ($container, images) => {
   $container.ontransitionend = () => {
     isMoving = false;
     const delta = currentSlide === 0 ? 1 : (currentSlide === images.length + 1 ? -1 : 0);
-
     // 클론 슬라이드가 아니면 이동 X
     if (!delta) return;
 
