@@ -1,13 +1,17 @@
-import { Title, Stopwatch } from './components';
+import React from 'react';
+import Carousel from './components/Carousel';
+import OverflowCheckBox from './components/OverflowCheckBox';
+import Title from './components/Title';
 
-import GlobalStyle from './styles/global';
-
-const App = () => (
-  <>
-    <GlobalStyle />
-    <Title>Stopwatch</Title>
-    <Stopwatch />
-  </>
-);
+function App() {
+  return (
+    <React.Fragment>
+      <OverflowCheckBox/>
+      <Title>Carousel Slider</Title>
+      <Carousel/>
+    </React.Fragment>
+  );
+}
 
 export default App;
+
