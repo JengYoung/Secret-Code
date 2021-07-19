@@ -13,7 +13,7 @@ const bootstrap = () => {
     });
 
     document.querySelector('.result-button').addEventListener('click', () => {
-        
+        alert(chips.getChips().join());
     });
 }
 

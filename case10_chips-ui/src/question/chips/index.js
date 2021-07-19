@@ -13,7 +13,9 @@ export class Chips {
         this.container = document.querySelector(configuration.selector);
 
         // 초기 템플릿 display
+        // 클릭 이벤트를 위해 변수에 저장.
         this.chipElements = this.initialize(this.container, configuration.data);
+        // 입력폼을 만듦
         this.inputElement = this.initializeInput(this.container);
         // event listen
         this.eventBinding();
@@ -28,11 +30,22 @@ export class Chips {
     initialize(selector, data) {
         // q1. 데이터에 따른 문자열 리스트와 입력 폼을 함께 출력하시오.
         // TODO: Write JS code here!'
-
+        for (let i = 0; i < data.length; i++) {
+            selector.appendChild(this.chipTemplete(data[i]));
+        }
         // 생성된 chip element를 리턴해준다.
-        return selector;
+        return document.querySelectorAll('.chips-item');
     }
-
+    // 템플릿 출력 메소드
+    chipTemplete(data) {
+        const newItem = document.createElement('div');
+        newItem.classList.add('chips-item');
+        newItem.innerHTML = `
+            <span class="chips-label">${data}</span>
+            <img class="chips-close" src="./src/solution/presenter/chips/assets/close.svg">
+        `
+        return newItem;
+    }
     /*
     * title: 최초 input element를 생성함.
     * input: display 되는 element
@@ -42,8 +55,11 @@ export class Chips {
     initializeInput(selector) {
         // q1. 데이터에 따른 문자열 리스트와 입력 폼을 함께 출력하시오.
         // TODO: Write JS code here!'
-
-        return selector;
+        const inputElement = document.createElement('input');
+        inputElement.classList.add('chips-input');
+        inputElement.placeholder = `enter text...`;
+        selector.appendChild(inputElement);
+        return inputElement;
     }
 
     /*
@@ -68,12 +84,36 @@ export class Chips {
         </p>
         <!-- afterend -->
         */
-
+        this.inputElement.addEventListener('keyup', (e) => {
+            if (e.key === "Enter") {
+                const newItem = this.chipTemplete(e.target.value);
+                newItem.querySelector('.chips-close').addEventListener('click', () => {
+                    newItem.remove();
+                })
+                this.container.insertAdjacentElement('afterbegin', newItem);
+                this.data.unshift(e.target.value);
+                e.target.value = '';
+            }
+        })
         // q3. 입력된 문자열을 삭제할 수 있도록 하시오.
         // TODO: Write JS code here!'
+        this.chipElements.forEach((elem, idx) => {
+            elem.querySelector('.chips-close').addEventListener('click', () => {
+                const label = elem.querySelector('.chips-label').innerHTML
+                this.removeData(label)
+                elem.remove();
+            })
+        })
     }
 
     // q4. 입력된 문자열에 대한 데이터를 가져올 수 있도록 하시오.
     // TODO: Write JS code here!'
-
+    getChips() {
+        return this.data;
+    }
+    removeData(label) {
+        this.data = this.data.filter(val => val !== label)
+        // const targetIdx = this.data.findIndex(item => item === label);
+        // this.data.splice(targetIdx, 1)
+    }
 }

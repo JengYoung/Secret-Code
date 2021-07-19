@@ -7,7 +7,6 @@ const OverflowCheckBox = () => {
     const { hidden, setHidden } = useCarousel();
     const handleChange = () => {
         setHidden(() => !hidden);
-        console.log(hidden);
         document.querySelector('.carousel').classList.toggle('hidden');
     }
     return(

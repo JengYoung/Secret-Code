@@ -55,7 +55,6 @@ const Carousel = () => {
         move(1);
     };
     const handleClick = ({ target: { id }}) => {
-        console.log('hi', isMoving)
         if (isMoving) return;
 
         const delta = id === 'prev' ? -1 : 1;
@@ -63,7 +62,6 @@ const Carousel = () => {
     }
 
     const handleTransitionEnd = () => {
-        console.log("발똥")
         setIsMoving(false);
 
         const delta = currentSlide === 0 ? 1 : currentSlide === images.length + 1 ? -1 : 0;

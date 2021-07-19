@@ -81,7 +81,12 @@ export class DropDownList {
         // TODO: Write JS code here!'
         // label position에 dropdown list 영역을 출력
         const target = document.querySelector('.dropdown-item-list-box');
-
+        const labelRect = this.dropdownLabel.getBoundingClientRect();
+        target.style.cssText = `
+            position: absolute;
+            width: ${labelRect.width}px;
+            top: ${labelRect.top + 5}px;
+        `
         return target;
     }
 
@@ -94,12 +99,14 @@ export class DropDownList {
         this.backdrop.addEventListener('click', () => {
             // q2. backdrop 영역 클릭 시의 이벤트를 처리하시오.
             // TODO: Write JS code here!'
+            this.backdrop.style.cssText = `display: none;`
         });
 
         // label 영역 클릭 시 이벤트
         this.dropdownLabel.addEventListener('click', () => {
             // q3. label 영역 클릭 시의 이벤트를 처리하시오.
             // TODO: Write JS code here!'
+            this.backdrop.style.cssText = `display: block;`
         });
 
         document.querySelectorAll('.dropdown-item-box')
@@ -117,6 +124,11 @@ export class DropDownList {
 
                 // q4. 함수(dispatchEvent)를 참조하여 id, label 값을 인자로 넘겨 이벤트를 발생시키시오.
                 // TODO: Write JS code here!'
+                // this.dispatchEvent({
+                //     id: currentOption[this.idField],
+                //     label: currentOption[this.labelField]
+                // })
+                this.dispatchEvent(currentOption)
             });
         });
     }
